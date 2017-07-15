@@ -1,1 +1,1 @@
-var millennium=function(){console.log("millenniumjs")};export default millennium;
+var millennium=function(){return"millennium"};export{millennium};

@@ -1,3 +1,3 @@
-export default () => {
-  console.log('millenniumjs');
+export const millennium = () => {
+  return 'millennium';
 };
