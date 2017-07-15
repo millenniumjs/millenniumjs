@@ -15,11 +15,10 @@
     "url": "https://github.com/millenniumjs/millenniumjs"
   },
   "scripts": {
-    "test": "BABEL_ENV=test mocha test/test.js --compilers js:babel-register",
+    "test": "BABEL_ENV=test mocha --compilers js:babel-register",
     "build": "BABEL_ENV=dev rollup -c",
     "dev": "BABEL_ENV=dev rollup -c -w",
-    "jsdocs": "jsdoc src/*.js",
-    "pretest": "npm run build"
+    "jsdocs": "jsdoc src/*.js"
   },
   "license": "MIT",
   "devDependencies": {
