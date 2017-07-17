@@ -3,7 +3,7 @@
  * @module src/vdom
  *
  * @param {string} type - Element type.
- * @param {(object|null)} props - All Props and values.
+ * @param {object} props - All Props and values.
  * @param {...(string|vdom)} children -  Child elements (String or vdom (Recursion)
  *
  * @returns {object} Virtual DOM representation as a plane object
