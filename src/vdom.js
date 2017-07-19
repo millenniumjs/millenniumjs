@@ -4,7 +4,7 @@
  *
  * @param {string} type - Element type.
  * @param {object} props - All Props and values.
- * @param {...(string|vdom)} children -  Child elements (String or vdom (Recursion)
+ * @param {...(string|vdom)} children -  Child elements (String or vdom)
  *
  * @returns {object} Virtual DOM representation as a plane object
  *
@@ -38,4 +38,4 @@
 
 export default (type, props, ...children) => {
   return { type, props, children };
-}
+};
