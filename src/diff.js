@@ -1,3 +1,4 @@
+//import makeElement from './makeElement.js';
 import makeElements from './makeElements.js';
 import isDifferentNode from './isDifferentNode.js';
 
@@ -14,21 +15,20 @@ import isDifferentNode from './isDifferentNode.js';
 
 export default function updateElement(parent, newNode, oldNode, index = 0) {
 
-  // New node
+  // Add new node
   // --------------------------
   if (!oldNode) {
-
     const newElement = makeElements(newNode);
     parent.appendChild(newElement);
 
-  // Remove node
+  // Remove deleted node
   // --------------------------
   } else if (!newNode) {
 
     const oldElement = parent.childNodes[index];
     parent.removeChild(oldElement);
 
-  // Replace node
+  // Replace different node
   // --------------------------
   } else if (isDifferentNode(newNode, oldNode)) {
 
@@ -36,10 +36,9 @@ export default function updateElement(parent, newNode, oldNode, index = 0) {
     const oldElement = parent.childNodes[index];
     parent.replaceChild(newElement, oldElement);
 
-  // Children
+  // Children recursion
   // --------------------------
-  } else if (newNode.type) {
-
+  } else if (newNode.children) {
     const newLength = newNode.children.length;
     const oldLength = oldNode.children.length;
 

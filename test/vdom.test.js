@@ -5,6 +5,44 @@ describe('vdom() - Virtual DOM representation', () => {
 
   // --------------------------
 
+  it('Should return a virtual node', () => {
+
+    const vNode = vdom(
+      'h1',
+      null
+    )
+
+    const vNodeResult = {
+      type: 'h1',
+      props: null,
+      children: []
+    }
+
+    expect(vNode).to.deep.equal(vNodeResult);
+
+  });
+
+  // --------------------------
+
+  it('Should return a virtual node with props', () => {
+
+    const vNode = vdom(
+      'h1',
+      {className: 'heading'}
+    )
+
+    const vNodeResult = {
+      type: 'h1',
+      props: {className: 'heading'},
+      children: []
+    }
+
+    expect(vNode).to.deep.equal(vNodeResult);
+
+  });
+
+  // --------------------------
+
   it('Should return a virtual node with one children (text)', () => {
 
     const vNode = vdom(

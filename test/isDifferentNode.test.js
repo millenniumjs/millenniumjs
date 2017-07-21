@@ -7,17 +7,8 @@ describe('isDifferentNode()', () => {
 
   it('Should return that the nodes are different by element type', () => {
 
-    const vNode1 = {
-      type: 'h1',
-      props: null,
-      children: null
-    }
-
-    const vNode2 = {
-      type: 'h2',
-      props: null,
-      children: null
-    }
+    const vNode1 = {type: 'h1'}
+    const vNode2 = {type: 'h2'}
 
     const result = isDifferentNode(vNode1, vNode2);
     expect(result).to.deep.equal(true);
@@ -28,17 +19,8 @@ describe('isDifferentNode()', () => {
 
   it('Should return that the nodes are equal by element type', () => {
 
-    const vNode1 = {
-      type: 'h1',
-      props: null,
-      children: null
-    }
-
-    const vNode2 = {
-      type: 'h1',
-      props: null,
-      children: null
-    }
+    const vNode1 = {type: 'h1'}
+    const vNode2 = {type: 'h1'}
 
     const result = isDifferentNode(vNode1, vNode2);
     expect(result).to.deep.equal(false);

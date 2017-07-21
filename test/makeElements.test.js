@@ -10,12 +10,7 @@ describe('makeElements() - Make real DOM element ', () => {
 
   it('Should return a real DOM element', () => {
 
-    const realNode = makeElements({
-      type: 'h1',
-      props: null,
-      children: null
-    })
-
+    const realNode = makeElements({type: 'h1'})
     const realNodeName = realNode.nodeName;
 
     expect(realNodeName).eql('H1');
@@ -28,8 +23,7 @@ describe('makeElements() - Make real DOM element ', () => {
 
     const realNode = makeElements({
       type: 'h1',
-      props: { id: 'heading' },
-      children: null
+      props: { id: 'heading' }
     })
 
     const realNodeIdProp = realNode.id;
@@ -62,11 +56,7 @@ describe('makeElements() - Make real DOM element ', () => {
       type: 'div',
       props: null,
       children: [
-        {
-          type: 'p',
-          props: null,
-          children: null
-        }
+        {type: 'p'}
       ]
     })
 
@@ -86,8 +76,7 @@ describe('makeElements() - Make real DOM element ', () => {
       children: [
         {
           type: 'p',
-          props: { className: 'paragraph' },
-          children: null
+          props: { className: 'paragraph' }
         }
       ]
     })

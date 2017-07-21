@@ -32,7 +32,7 @@
  *  null,
  *  'text',
  *  vdom('label', null, 'text'),
- *  vdom('input', {className: 'foo', type: 'text'}, null)
+ *  vdom('input', {className: 'foo', type: 'text'})
  *);
  */
 
