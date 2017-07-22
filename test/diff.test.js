@@ -1,323 +1,737 @@
 import jsdom from 'mocha-jsdom';
-import { expect } from 'chai';
+import { expect, should } from 'chai';
 import makeElements from '../src/makeElements.js';
 import vdom from '../src/vdom.js';
 import diff from '../src/diff.js';
 
-describe('diff() - Diff virtual DOM and render changes in real DOM', () => {
+describe('diff()', () => {
 
-  jsdom()
+  describe('First render', () => {
 
-  // First render
-  // --------------------------
-  it('Should return a first render: parent element', () => {
+    jsdom()
 
-    const parent = makeElements({type: 'div'})
-    const firstNode = vdom('h1')
+    // First render
+    // --------------------------
+    it('Should return a first render: parent element', () => {
 
-    diff(parent, firstNode)
+      const parent = makeElements({type: 'div'})
+      const firstNode = vdom('h1')
 
-    const newNodeTextContent = parent.nodeName;
-    expect(newNodeTextContent).to.deep.equal('DIV');
+      diff(parent, firstNode)
+
+      const newNodeTextContent = parent.nodeName;
+      expect(newNodeTextContent).to.deep.equal('DIV');
+
+    });
+
+    // --------------------------
+    it('Should return a first render: One child element', () => {
+
+      const parent = makeElements({type: 'div',})
+      const firstNode = vdom('h1')
+
+      diff(parent, firstNode)
+
+      const newNodeTextContent = parent.childNodes[0].nodeName;
+      expect(newNodeTextContent).to.deep.equal('H1');
+
+    });
+
+    // --------------------------
+    it('Should return a first render: One child element with props', () => {
+
+      const parent = makeElements({type: 'div',})
+      const firstNode = vdom('h1', {className: 'heading'})
+
+      diff(parent, firstNode)
+
+      const newNodeTextContent = parent.childNodes[0].className;
+      expect(newNodeTextContent).to.deep.equal('heading');
+
+    });
+
+    // --------------------------
+    it('Should return a first render: One child element with text node', () => {
+
+      const parent = makeElements({type: 'div',})
+      const firstNode = vdom('h1', null, 'hello')
+
+      diff(parent, firstNode)
+
+      const newNodeTextContent = parent.childNodes[0].textContent;
+      expect(newNodeTextContent).to.deep.equal('hello');
+
+    });
+
+    // --------------------------
+    it('Should return a first render: One child element with deep child element', () => {
+
+      const parent = makeElements({type: 'div',})
+      const firstNode = vdom(
+        'p',
+        null,
+        vdom('h1')
+      )
+
+      diff(parent, firstNode)
+
+      const newNodeTextContent = parent.childNodes[0].childNodes[0].nodeName;
+      expect(newNodeTextContent).to.deep.equal('H1');
+
+    });
+
+    // --------------------------
+    it('Should return a first render: One child element with deep child props', () => {
+
+      const parent = makeElements({type: 'div',})
+      const firstNode = vdom(
+        'p',
+        null,
+        vdom('h1', {id: 'heading1'})
+      )
+
+      diff(parent, firstNode)
+
+      const newNodeTextContent = parent.childNodes[0].childNodes[0].id;
+      expect(newNodeTextContent).to.deep.equal('heading1');
+
+    });
+
+    // --------------------------
+    it('Should return a first render: One child element with deep child text node', () => {
+
+      const parent = makeElements({type: 'div',})
+      const firstNode = vdom(
+        'p',
+        null,
+        vdom('h1', null, 'hello')
+      )
+
+      diff(parent, firstNode)
+
+      const newNodeTextContent = parent.childNodes[0].childNodes[0].textContent;
+      expect(newNodeTextContent).to.deep.equal('hello');
+
+    });
 
   });
 
-  // --------------------------
-  it('Should return a first render: One child element', () => {
+  describe('New elements', () => {
 
-    const parent = makeElements({type: 'div',})
-    const firstNode = vdom('h1')
+    jsdom()
 
-    diff(parent, firstNode)
+    // Add new node
+    // --------------------------
 
-    const newNodeTextContent = parent.childNodes[0].nodeName;
-    expect(newNodeTextContent).to.deep.equal('H1');
+    it('Should return a new element', () => {
+
+      const parent = makeElements({type: 'div'})
+
+      const oldNode = vdom(
+        'ul',
+        null,
+        vdom('li')
+      )
+      const newNode = vdom(
+        'ul',
+        null,
+        vdom('li'),
+        vdom('li')
+      )
+
+      diff(parent, oldNode)
+      diff(parent, newNode, oldNode)
+
+      const newNodeTextContent = parent.childNodes[0].childNodes[1].nodeName;
+      expect(newNodeTextContent).to.deep.equal('LI');
+
+    });
+
+    // --------------------------
+
+    it('Should return a new element with props', () => {
+
+      const parent = makeElements({type: 'div'})
+
+      const oldNode = vdom(
+        'ul',
+        null,
+        vdom('li')
+      )
+      const newNode = vdom(
+        'ul',
+        null,
+        vdom('li'),
+        vdom('li', {id: 'list-item'})
+      )
+
+      diff(parent, oldNode)
+      diff(parent, newNode, oldNode)
+
+      const newNodeTextContent = parent.childNodes[0].childNodes[1].id;
+      expect(newNodeTextContent).to.deep.equal('list-item');
+
+    });
+
+    // --------------------------
+
+    it('Should return a new element with text node', () => {
+
+      const parent = makeElements({type: 'div'})
+
+      const oldNode = vdom(
+        'ul',
+        null,
+        vdom('li')
+      )
+      const newNode = vdom(
+        'ul',
+        null,
+        vdom('li'),
+        vdom('li', null, 'hello')
+      )
+
+      diff(parent, oldNode)
+      diff(parent, newNode, oldNode)
+
+      const newNodeTextContent = parent.childNodes[0].childNodes[1].textContent;
+      expect(newNodeTextContent).to.deep.equal('hello');
+
+    });
 
   });
 
-  // --------------------------
-  it('Should return a first render: One child element with props', () => {
+  describe('New props', () => {
 
-    const parent = makeElements({type: 'div',})
-    const firstNode = vdom('h1', {className: 'heading'})
+    jsdom()
 
-    diff(parent, firstNode)
+    // Add new node
+    // --------------------------
+    it('Should return the same element (propless) with new prop', () => {
 
-    const newNodeTextContent = parent.childNodes[0].className;
-    expect(newNodeTextContent).to.deep.equal('heading');
+      const parent = makeElements({type: 'div'})
 
-  });
+      const oldNode = vdom('div')
 
-  // --------------------------
-  it('Should return a first render: One child element with text node', () => {
+      const newNode = vdom(
+        'div',
+        {id: 'main'}
+      )
 
-    const parent = makeElements({type: 'div',})
-    const firstNode = vdom('h1', null, 'hello')
+      diff(parent, oldNode)
+      diff(parent, newNode, oldNode)
 
-    diff(parent, firstNode)
+      const newNodeTextContent = parent.childNodes[0].id;
+      expect(newNodeTextContent).to.deep.equal('main');
 
-    const newNodeTextContent = parent.childNodes[0].textContent;
-    expect(newNodeTextContent).to.deep.equal('hello');
+    });
 
-  });
+    // --------------------------
+    it('Should return the same element with new prop', () => {
 
-  // --------------------------
-  it('Should return a first render: One child element with deep child element', () => {
+      const parent = makeElements({type: 'div'})
 
-    const parent = makeElements({type: 'div',})
-    const firstNode = vdom(
-      'p',
+      const oldNode = vdom(
+        'div',
+        {
+          id: 'main'
+        }
+      )
+
+      const newNode = vdom(
+        'div',
+        {
+          id: 'main',
+          className: 'main'
+        }
+      )
+
+      diff(parent, oldNode)
+      diff(parent, newNode, oldNode)
+
+      const newNodeTextContent = parent.childNodes[0].className;
+      expect(newNodeTextContent).to.deep.equal('main');
+
+    });
+
+    // --------------------------
+    it('Should return the same child element (propless) with new prop', () => {
+
+      const parent = makeElements({type: 'div'})
+
+      const oldNode = vdom(
+      'div',
       null,
       vdom('h1')
-    )
+      )
 
-    diff(parent, firstNode)
-
-    const newNodeTextContent = parent.childNodes[0].childNodes[0].nodeName;
-    expect(newNodeTextContent).to.deep.equal('H1');
-
-  });
-
-  // --------------------------
-  it('Should return a first render: One child element with deep child props', () => {
-
-    const parent = makeElements({type: 'div',})
-    const firstNode = vdom(
-      'p',
+      const newNode = vdom(
+      'div',
       null,
-      vdom('h1', {id: 'heading1'})
-    )
+      vdom('h1', {id:'main'})
+      )
 
-    diff(parent, firstNode)
+      diff(parent, oldNode)
+      diff(parent, newNode, oldNode)
 
-    const newNodeTextContent = parent.childNodes[0].childNodes[0].id;
-    expect(newNodeTextContent).to.deep.equal('heading1');
+      const newNodeTextContent = parent.childNodes[0].childNodes[0].id;
+      expect(newNodeTextContent).to.deep.equal('main');
+
+    });
+
+    // --------------------------
+    it('Should return the same child element with new prop', () => {
+
+      const parent = makeElements({type: 'div'})
+
+      const oldNode = vdom(
+      'div',
+      null,
+      vdom('h1', {id:'main'})
+      )
+
+      const newNode = vdom(
+      'div',
+      null,
+      vdom('h1', {id:'main', className:'main'})
+      )
+
+      diff(parent, oldNode)
+      diff(parent, newNode, oldNode)
+
+      const newNodeTextContent = parent.childNodes[0].childNodes[0].className;
+      expect(newNodeTextContent).to.deep.equal('main');
+
+    });
 
   });
 
-  // --------------------------
-  it('Should return a first render: One child element with deep child text node', () => {
+  describe(' New text node', () => {
 
-    const parent = makeElements({type: 'div',})
-    const firstNode = vdom(
-      'p',
+    jsdom()
+
+    // --------------------------
+    it('Should return the same element with new text node', () => {
+
+      const parent = makeElements({type: 'div'})
+
+      const oldNode = vdom('div')
+      const newNode = vdom('div', null, 'hello')
+
+      diff(parent, oldNode)
+      diff(parent, newNode, oldNode)
+
+      const newNodeTextContent = parent.childNodes[0].textContent;
+      expect(newNodeTextContent).to.deep.equal('hello');
+
+    });
+
+    // --------------------------
+    it('Should return the same element child with new text node', () => {
+
+      const parent = makeElements({type: 'div'})
+
+      const oldNode = vdom(
+      'div',
+      null,
+      vdom('h1')
+      )
+
+      const newNode = vdom(
+      'div',
       null,
       vdom('h1', null, 'hello')
-    )
+      )
 
-    diff(parent, firstNode)
+      diff(parent, oldNode)
+      diff(parent, newNode, oldNode)
 
-    const newNodeTextContent = parent.childNodes[0].childNodes[0].textContent;
-    expect(newNodeTextContent).to.deep.equal('hello');
+      const newNodeTextContent = parent.childNodes[0].childNodes[0].textContent;
+      expect(newNodeTextContent).to.deep.equal('hello');
 
-  });
-
-  // Add new node
-  // --------------------------
-
-  it('Should return a new element', () => {
-
-    const parent = makeElements({type: 'div'})
-
-    const oldNode = vdom(
-      'ul',
-      null,
-      vdom('li')
-    )
-    const newNode = vdom(
-      'ul',
-      null,
-      vdom('li'),
-      vdom('li')
-    )
-
-    diff(parent, oldNode)
-    diff(parent, newNode, oldNode)
-
-    const newNodeTextContent = parent.childNodes[0].childNodes[1].nodeName;
-    expect(newNodeTextContent).to.deep.equal('LI');
+    });
 
   });
 
-  // --------------------------
+  describe('Remove elements', () => {
 
-  it('Should return a new element with props', () => {
+    jsdom()
 
-    const parent = makeElements({type: 'div'})
+    // Remove deleted node
+    // --------------------------
 
-    const oldNode = vdom(
-      'ul',
-      null,
-      vdom('li')
-    )
-    const newNode = vdom(
-      'ul',
-      null,
-      vdom('li'),
-      vdom('li', {id: 'list-item'})
-    )
+    it('Should return a list of elements with a randon removed element', () => {
 
-    diff(parent, oldNode)
-    diff(parent, newNode, oldNode)
+      const parent = makeElements({type: 'div'})
 
-    const newNodeTextContent = parent.childNodes[0].childNodes[1].id;
-    expect(newNodeTextContent).to.deep.equal('list-item');
+      const oldNode = vdom(
+        'ul',
+        null,
+        vdom('li'),
+        vdom('li'),
+        vdom('li')
+      )
+      const newNode = vdom(
+        'ul',
+        null,
+        vdom('li'),
+        vdom('li')
+      )
 
-  });
+      diff(parent, oldNode)
+      diff(parent, newNode, oldNode)
 
-  // --------------------------
+      const newNodeTextContent = parent.childNodes[0].childNodes.length;
+      expect(newNodeTextContent).to.deep.equal(2);
 
-  it('Should return a new element with text node', () => {
+    });
 
-    const parent = makeElements({type: 'div'})
+    it('Should return a list of elements with a specific removed element', () => {
 
-    const oldNode = vdom(
-      'ul',
-      null,
-      vdom('li')
-    )
-    const newNode = vdom(
-      'ul',
-      null,
-      vdom('li'),
-      vdom('li', null, 'hello')
-    )
+      const parent = makeElements({type: 'div'})
 
-    diff(parent, oldNode)
-    diff(parent, newNode, oldNode)
+      const oldNode = vdom(
+        'ul',
+        null,
+        vdom('li', null, 'item 1'),
+        vdom('li', null, 'item 2'),
+        vdom('li', null, 'item 3')
+      )
+      const newNode = vdom(
+        'ul',
+        null,
+        vdom('li', null, 'item 1'),
+        vdom('li', null, 'item 3')
+      )
 
-    const newNodeTextContent = parent.childNodes[0].childNodes[1].textContent;
-    expect(newNodeTextContent).to.deep.equal('hello');
+      diff(parent, oldNode)
+      diff(parent, newNode, oldNode)
 
-  });
+      const newNodeTextContent = parent.childNodes[0].childNodes[1].textContent;
+      expect(newNodeTextContent).to.deep.equal('item 3');
 
-  // Remove deleted node
-  // --------------------------
-
-  it('Should return a list of elements with a randon removed element', () => {
-
-    const parent = makeElements({type: 'div'})
-
-    const oldNode = vdom(
-      'ul',
-      null,
-      vdom('li'),
-      vdom('li'),
-      vdom('li')
-    )
-    const newNode = vdom(
-      'ul',
-      null,
-      vdom('li'),
-      vdom('li')
-    )
-
-    diff(parent, oldNode)
-    diff(parent, newNode, oldNode)
-
-    const newNodeTextContent = parent.childNodes[0].childNodes.length;
-    expect(newNodeTextContent).to.deep.equal(2);
+    });
 
   });
 
-  it('Should return a list of elements with a specific removed element', () => {
+  describe('Remove props', () => {
 
-    const parent = makeElements({type: 'div'})
+    jsdom()
 
-    const oldNode = vdom(
-      'ul',
-      null,
-      vdom('li', null, 'item 1'),
-      vdom('li', null, 'item 2'),
-      vdom('li', null, 'item 3')
-    )
-    const newNode = vdom(
-      'ul',
-      null,
-      vdom('li', null, 'item 1'),
-      vdom('li', null, 'item 3')
-    )
+    it('Should return the same element with removed prop', () => {
 
-    diff(parent, oldNode)
-    diff(parent, newNode, oldNode)
+      const parent = makeElements({type: 'div'})
 
-    const newNodeTextContent = parent.childNodes[0].childNodes[1].textContent;
-    expect(newNodeTextContent).to.deep.equal('item 3');
+      const oldNode = vdom(
+        'div',
+        {id: 'main'}
+      )
 
-  });
+      const newNode = vdom('div')
 
-  // Replace different node
-  // --------------------------
+      diff(parent, oldNode)
+      diff(parent, newNode, oldNode)
 
-  it('Should return a different element', () => {
+      const newNodeTextContent = parent.childNodes[0].id;
+      expect(newNodeTextContent).to.deep.equal('');
 
-    const parent = makeElements({type: 'div'})
+    });
 
-    const oldNode = vdom('h1')
-    const newNode = vdom('h2')
+    it('Should return the same child element with removed prop', () => {
 
-    diff(parent, oldNode)
-    diff(parent, newNode, oldNode)
+      const parent = makeElements({type: 'div'})
 
-    const newNodeTextContent = parent.childNodes[0].nodeName;
-    expect(newNodeTextContent).to.deep.equal('H2');
+      const oldNode = vdom(
+        'div',
+        null,
+        vdom(
+          'h1',
+          {
+            id: 'heading',
+            className: 'heading'
+          }
+        )
+      )
 
-  });
+      const newNode = vdom(
+        'div',
+        null,
+        vdom(
+          'h1',
+          {
+            id: 'heading'
+          }
+        )
+      )
 
-  // --------------------------
+      diff(parent, oldNode)
+      diff(parent, newNode, oldNode)
 
-  it('Should return the same element with a different text node', () => {
+      const newNodeTextContent = parent.childNodes[0].childNodes[0].className;
+      expect(newNodeTextContent).to.deep.equal('');
 
-    const parent = makeElements({type: 'div'})
-
-    const oldNode = vdom('h1', null, 'text')
-    const newNode = vdom('h1', null, 'changed text')
-
-    diff(parent, oldNode)
-    diff(parent, newNode, oldNode)
-
-    const newNodeTextContent = parent.childNodes[0].textContent;
-    expect(newNodeTextContent).to.deep.equal('changed text');
-
-  });
-
-  // --------------------------
-
-  it('Should return the same element with a different child element', () => {
-
-    const parent = makeElements({type: 'div'})
-
-    const oldChildNode = vdom('div')
-    const oldNode = vdom('p', null, oldChildNode)
-
-    const newChildNode = vdom('div')
-    const newNode = vdom('h1', null, newChildNode)
-
-    diff(parent, oldNode)
-    diff(parent, newNode, oldNode)
-
-    const newNodeTextContent = parent.childNodes[0].nodeName;
-    expect(newNodeTextContent).to.deep.equal('H1');
+    });
 
   });
 
-  // --------------------------
+  describe('Remove text nodes', () => {
 
-  it('Should return the same child element with a different text node', () => {
+    jsdom()
 
-    const parent = makeElements({type: 'div'})
+    it('Should return the same element with removed text node', () => {
 
-    const oldChildNode = vdom('div', null, 'text')
-    const oldNode = vdom('p', null, oldChildNode)
+      const parent = makeElements({type: 'div'})
 
-    const newChildNode = vdom('div', null, 'changed text')
-    const newNode = vdom('p', null, newChildNode)
+      const oldNode = vdom(
+        'div',
+        null,
+        'hello'
+      )
 
-    diff(parent, oldNode)
-    diff(parent, newNode, oldNode)
+      const newNode = vdom('div')
 
-    const newNodeTextContent = parent.childNodes[0].textContent;
-    expect(newNodeTextContent).to.deep.equal('changed text');
+      diff(parent, oldNode)
+      diff(parent, newNode, oldNode)
+
+      const newNodeTextContent = parent.childNodes[0].textContent;
+      expect(newNodeTextContent).to.deep.equal('');
+
+    });
+
+    it('Should return the same child element with removed text node', () => {
+
+      const parent = makeElements({type: 'div'})
+
+      const oldNode = vdom(
+        'div',
+        null,
+        vdom(
+          'h1',
+          null,
+          'hello'
+        )
+      )
+
+      const newNode = vdom(
+        'div',
+        null,
+        vdom(
+          'h1'
+        )
+      )
+
+      diff(parent, oldNode)
+      diff(parent, newNode, oldNode)
+
+      const newNodeTextContent = parent.childNodes[0].childNodes[0].textContent;
+      expect(newNodeTextContent).to.deep.equal('');
+
+    });
+
+  });
+
+  describe('Replace elements', () => {
+
+    jsdom()
+
+    // Replace different node
+    // --------------------------
+
+    it('Should return a different element', () => {
+
+      const parent = makeElements({type: 'div'})
+
+      const oldNode = vdom('h1')
+      const newNode = vdom('h2')
+
+      diff(parent, oldNode)
+      diff(parent, newNode, oldNode)
+
+      const newNodeTextContent = parent.childNodes[0].nodeName;
+      expect(newNodeTextContent).to.deep.equal('H2');
+
+    });
+
+    // --------------------------
+
+    it('Should return the same element with a different text node', () => {
+
+      const parent = makeElements({type: 'div'})
+
+      const oldNode = vdom('h1', null, 'text')
+      const newNode = vdom('h1', null, 'changed text')
+
+      diff(parent, oldNode)
+      diff(parent, newNode, oldNode)
+
+      const newNodeTextContent = parent.childNodes[0].textContent;
+      expect(newNodeTextContent).to.deep.equal('changed text');
+
+    });
+
+    // --------------------------
+
+    it('Should return the same element with a different child element', () => {
+
+      const parent = makeElements({type: 'div'})
+
+      const oldChildNode = vdom('div')
+      const oldNode = vdom('p', null, oldChildNode)
+
+      const newChildNode = vdom('div')
+      const newNode = vdom('h1', null, newChildNode)
+
+      diff(parent, oldNode)
+      diff(parent, newNode, oldNode)
+
+      const newNodeTextContent = parent.childNodes[0].nodeName;
+      expect(newNodeTextContent).to.deep.equal('H1');
+
+    });
+
+    // --------------------------
+
+    it('Should return the same child element with a different text node', () => {
+
+      const parent = makeElements({type: 'div'})
+
+      const oldChildNode = vdom('div', null, 'text')
+      const oldNode = vdom('p', null, oldChildNode)
+
+      const newChildNode = vdom('div', null, 'changed text')
+      const newNode = vdom('p', null, newChildNode)
+
+      diff(parent, oldNode)
+      diff(parent, newNode, oldNode)
+
+      const newNodeTextContent = parent.childNodes[0].textContent;
+      expect(newNodeTextContent).to.deep.equal('changed text');
+
+    });
+
+  });
+
+  describe('Replace props', () => {
+
+    jsdom()
+
+    // --------------------------
+    it('Should return the same element with a different prop value', () => {
+
+      const parent = makeElements({type: 'div'})
+
+      const oldNode = vdom(
+        'div',
+        {id: 'main'}
+      )
+
+      const newNode = vdom(
+        'div',
+        {id: 'main2'}
+      )
+
+      diff(parent, oldNode)
+      diff(parent, newNode, oldNode)
+
+      const newNodeTextContent = parent.childNodes[0].id;
+      expect(newNodeTextContent).to.deep.equal('main2');
+
+    });
+
+    // --------------------------
+    it('Should return the same child element with a different prop value', () => {
+
+      const parent = makeElements({type: 'div'})
+
+      const oldNode = vdom(
+        'div',
+        null,
+        vdom(
+        'h1',
+        {id: 'main'}
+      )
+      )
+
+      const newNode = vdom(
+        'div',
+        null,
+        vdom(
+        'h1',
+        {id: 'main2'}
+      )
+      )
+
+      diff(parent, oldNode)
+      diff(parent, newNode, oldNode)
+
+      const newNodeTextContent = parent.childNodes[0].childNodes[0].id;
+      expect(newNodeTextContent).to.deep.equal('main2');
+
+    });
+
+  });
+
+  describe('Replace text nodes', () => {
+
+    jsdom()
+
+    // --------------------------
+    it('Should return the same element with a different text node', () => {
+
+      const parent = makeElements({type: 'div'})
+
+      const oldNode = vdom(
+        'div',
+        null,
+        'Hello'
+      )
+
+      const newNode = vdom(
+        'div',
+        null,
+        'Hello 2'
+      )
+
+      diff(parent, oldNode)
+      diff(parent, newNode, oldNode)
+
+      const newNodeTextContent = parent.childNodes[0].textContent;
+      expect(newNodeTextContent).to.deep.equal('Hello 2');
+
+    });
+
+    // --------------------------
+    it('Should return the same child element with a different text node', () => {
+
+      const parent = makeElements({type: 'div'})
+
+      const oldNode = vdom(
+        'div',
+        null,
+        vdom(
+          'h1',
+          null,
+          'Hello'
+        )
+      )
+
+      const newNode = vdom(
+        'div',
+        null,
+        vdom(
+          'h1',
+          null,
+          'Hello 2'
+        )
+      )
+
+      diff(parent, oldNode)
+      diff(parent, newNode, oldNode)
+
+      const newNodeTextContent = parent.childNodes[0].childNodes[0].textContent;
+      expect(newNodeTextContent).to.deep.equal('Hello 2');
+
+    });
 
   });
 
