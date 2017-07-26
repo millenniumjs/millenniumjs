@@ -1,5 +1,7 @@
 import makeElements from './makeElements.js';
 import isDifferentNode from './isDifferentNode.js';
+import diffProps from './diffProps.js';
+
 /**
  * Diff the old and new virtual DOM representations
  * @module src/diff
@@ -11,7 +13,7 @@ import isDifferentNode from './isDifferentNode.js';
  *
  */
 
-export default function updateElement(parent, newNode, oldNode, index = 0) {
+export default function diffElement(parent, newNode, oldNode, index = 0) {
 
   // Add new node
   // --------------------------
@@ -35,20 +37,34 @@ export default function updateElement(parent, newNode, oldNode, index = 0) {
     const oldElement = parent.childNodes[index];
     parent.replaceChild(newElement, oldElement);
 
-  // Children recursion
+  // Same element node
   // --------------------------
-  } else if (newNode.children) {
+  } else if (newNode.type) {
 
-    const newLength = newNode.children.length;
-    const oldLength = oldNode.children.length;
+    // diff props
+    // --------------------------
+    diffProps(
+      parent.childNodes[index],
+      newNode.props,
+      oldNode.props
+    );
 
-    for (let i = 0; i < newLength || i < oldLength; i++) {
-      updateElement(
-        parent.childNodes[index],
-        newNode.children[i],
-        oldNode.children[i],
-        i
-      );
+    // Children recursion
+    // --------------------------
+    if (newNode.children) {
+
+      const newLength = newNode.children.length;
+      const oldLength = oldNode.children.length;
+
+      for (let i = 0; i < newLength || i < oldLength; i++) {
+        diffElement(
+          parent.childNodes[index],
+          newNode.children[i],
+          oldNode.children[i],
+          i
+        );
+      }
+
     }
 
   }
