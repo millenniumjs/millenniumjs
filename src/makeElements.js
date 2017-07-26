@@ -23,8 +23,8 @@ export default function makeElements(vNode) {
   // props
   // --------------------------
   if(vNode.props) {
-    Object.keys(vNode.props).forEach(prop => {
-      element[prop] = vNode.props[prop];
+    Object.keys(vNode.props).forEach(propName => {
+      element[propName] = vNode.props[propName];
     });
   }
 

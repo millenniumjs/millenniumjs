@@ -1,11 +1,7 @@
 import millennium from '../dist/millennium';
 
-// let clock1 = millennium.component('div', null, new Date().toLocaleTimeString());
-// millennium.render(document.getElementById('app'), clock1);
 
 const tick = () => {
-
-
 
   const clock = millennium.component(
     'div',
@@ -13,11 +9,15 @@ const tick = () => {
     new Date().toLocaleTimeString()
   )
 
+  const x = millennium.component(
+    'input',
+    {type: 'checkbox', checked: true}
+  )
+
   const p = millennium.component(
     'p',
     {className: 'paragraph'},
-    clock
-
+    clock, x
 );
 
 

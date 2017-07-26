@@ -7,14 +7,11 @@ describe('vdom() - Virtual DOM representation', () => {
 
   it('Should return a virtual node', () => {
 
-    const vNode = vdom(
-      'h1',
-      null
-    )
+    const vNode = vdom('h1')
 
     const vNodeResult = {
       type: 'h1',
-      props: null,
+      props: {},
       children: []
     }
 
@@ -77,7 +74,7 @@ describe('vdom() - Virtual DOM representation', () => {
 
     const vNodeResult = {
       type: 'div',
-      props: null,
+      props: {},
       children: [
         {
           type: 'p',
@@ -113,12 +110,12 @@ describe('vdom() - Virtual DOM representation', () => {
 
     const vNodeResult = {
       type: 'div',
-      props: null,
+      props: {},
       children: [
         'page',
         {
           type: 'h1',
-          props: null,
+          props: {},
           children: ['Page Title']
         },
         {
@@ -127,7 +124,7 @@ describe('vdom() - Virtual DOM representation', () => {
           children: [
             {
               type: 'b',
-              props: null,
+              props: {},
               children: ['Hello']
             }
           ]

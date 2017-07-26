@@ -1,7 +1,5 @@
-//import makeElement from './makeElement.js';
 import makeElements from './makeElements.js';
 import isDifferentNode from './isDifferentNode.js';
-
 /**
  * Diff the old and new virtual DOM representations
  * @module src/diff
@@ -18,6 +16,7 @@ export default function updateElement(parent, newNode, oldNode, index = 0) {
   // Add new node
   // --------------------------
   if (!oldNode) {
+
     const newElement = makeElements(newNode);
     parent.appendChild(newElement);
 
@@ -39,6 +38,7 @@ export default function updateElement(parent, newNode, oldNode, index = 0) {
   // Children recursion
   // --------------------------
   } else if (newNode.children) {
+
     const newLength = newNode.children.length;
     const oldLength = oldNode.children.length;
 
@@ -52,4 +52,5 @@ export default function updateElement(parent, newNode, oldNode, index = 0) {
     }
 
   }
+
 }
