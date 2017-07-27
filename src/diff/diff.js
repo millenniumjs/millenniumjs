@@ -1,10 +1,11 @@
 import makeElements from './makeElements/makeElements';
 import isDifferentNode from './helpers/isDifferentNode';
 import diffProps from './diffProps/diffProps';
+import diffTextNodes from './diffTextNodes/diffTextNodes';
 
 /**
  * Diff the old and new virtual DOM representations
- * @module src/diff
+ * @module src/diff/diff
  *
  * @param {object} parent - parent element
  * @param {object} newNode - virtual DOM representation
@@ -37,6 +38,11 @@ export default function diffElement(parent, newNode, oldNode, index = 0) {
     const oldElement = parent.childNodes[index];
     parent.replaceChild(newElement, oldElement);
 
+  // diff text nodes
+  // --------------------------
+  } else if (typeof newNode === 'string') {
+    diffTextNodes(parent, newNode, oldNode);
+
   // Same element node
   // --------------------------
   } else if (newNode.type) {
@@ -49,7 +55,7 @@ export default function diffElement(parent, newNode, oldNode, index = 0) {
       oldNode.props
     );
 
-    // Children recursion
+    // Children elements recursion
     // --------------------------
     if (newNode.children) {
 

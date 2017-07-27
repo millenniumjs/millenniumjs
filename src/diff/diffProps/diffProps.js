@@ -3,7 +3,7 @@ import removeProp from './helpers/removeProp';
 
 /**
  * Diff all props
- * @module src/diffProps
+ * @module src/diff/diffProps/diffProps
  *
  * @param {object} element - Element for diff
  * @param {object} newProps - All props in new Virtual DOM Element

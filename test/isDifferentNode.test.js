@@ -27,28 +27,4 @@ describe('isDifferentNode()', () => {
 
   });
 
-  // --------------------------
-
-  it('Should return that the text nodes are different', () => {
-
-    const vNode1 = 'Hello World';
-    const vNode2 = 'Hello World 2';
-
-    const result = isDifferentNode(vNode1, vNode2);
-
-    expect(result).to.deep.equal(true);
-
-  });
-
-  it('Should return that the text nodes are equal', () => {
-
-    const vNode1 = 'Hello World';
-    const vNode2 = 'Hello World';
-
-    const result = isDifferentNode(vNode1, vNode2);
-
-    expect(result).to.deep.equal(false);
-
-  });
-
 });

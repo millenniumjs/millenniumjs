@@ -1,6 +1,6 @@
 /**
  * Generate real DOM elements.
- * @module src/makeElements
+ * @module src/diff/makeElements/makeElements
  *
  * @param {object} vNode - virtual DOM representation
  *
