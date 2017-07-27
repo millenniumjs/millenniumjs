@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import vdom from '../src/vdom.js';
+import vdom from '../src/vdom/vdom';
 
 describe('vdom() - Virtual DOM representation', () => {
 

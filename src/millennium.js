@@ -1,5 +1,5 @@
-import vdom from './vdom';
-import diff from './diff';
+import vdom from './vdom/vdom';
+import diff from './diff/diff';
 
 class Millennium  {
   constructor() {

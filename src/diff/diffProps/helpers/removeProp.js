@@ -9,7 +9,8 @@
 
 export default function removeProp(element, propName) {
   if (propName === 'className') {
-    propName = 'class'
+    element.removeAttribute('class');
+  } else {
+    element.removeAttribute(propName);
   }
-  element.removeAttribute(propName);
 }

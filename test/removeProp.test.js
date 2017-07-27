@@ -1,8 +1,8 @@
 import jsdom from 'mocha-jsdom';
-import {expect} from 'chai';
-import makeElements from '../src/makeElements';
-import vdom from '../src/vdom.js';
-import removeProp from '../src/removeProp.js';
+import { expect } from 'chai';
+import makeElements from '../src/diff/makeElements/makeElements';
+import vdom from '../src/vdom/vdom';
+import removeProp from '../src/diff/diffProps/helpers/removeProp';
 
 describe('removeProp()', () => {
 

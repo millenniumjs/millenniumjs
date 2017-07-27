@@ -1,5 +1,5 @@
-import addProp from './addProp';
-import removeProp from './removeProp';
+import addProp from './helpers/addProp';
+import removeProp from './helpers/removeProp';
 
 /**
  * Diff all props
@@ -33,9 +33,9 @@ export default function diffProps(element, newProps, oldProps = {}) {
  * @function
  *
  * @param {object} element - Element for prop diff
- * @param {object} propName - Prop Name
- * @param {object} newValue - New prop Value
- * @param {object} oldValue - Old prop value
+ * @param {string} propName - Prop Name
+ * @param {string} newValue - New prop Value
+ * @param {string} oldValue - Old prop value
  *
  */
 
@@ -57,4 +57,4 @@ const diffProp = (element, propName, newValue, oldValue) => {
     addProp(element, propName, newValue);
   }
 
-}
+};

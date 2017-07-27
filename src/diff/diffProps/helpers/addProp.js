@@ -10,8 +10,8 @@
 
 export default function addProp(element, propName, propValue) {
   if (propName === 'className') {
-    propName = 'class'
+    element.setAttribute('class', propValue);
+  } else {
+    element.setAttribute(propName, propValue);
   }
-
-  element.setAttribute(propName, propValue);
 }

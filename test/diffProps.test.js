@@ -1,8 +1,8 @@
 import jsdom from 'mocha-jsdom';
 import { expect } from 'chai';
-import makeElements from '../src/makeElements.js';
-import vdom from '../src/vdom.js';
-import diffProps from '../src/diffProps.js';
+import makeElements from '../src/diff/makeElements/makeElements';
+import vdom from '../src/vdom/vdom';
+import diffProps from '../src/diff/diffProps/diffProps';
 
 describe('diffProps()', () => {
 

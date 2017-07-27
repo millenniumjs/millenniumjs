@@ -1,6 +1,6 @@
 import jsdom from 'mocha-jsdom';
 import { expect } from 'chai';
-import makeElements from '../src/makeElements.js';
+import makeElements from '../src/diff/makeElements/makeElements';
 
 describe('makeElements() - Make real DOM element ', () => {
 
@@ -26,9 +26,9 @@ describe('makeElements() - Make real DOM element ', () => {
       props: { id: 'heading' }
     })
 
-    const realNodeIdProp = realNode.id;
+    const realNodeId = realNode.id;
 
-    expect(realNodeIdProp).eql('heading');
+    expect(realNodeId).eql('heading');
 
   });
 
@@ -42,9 +42,9 @@ describe('makeElements() - Make real DOM element ', () => {
       children: ['text']
     })
 
-    const realNodeChildText = realNode.childNodes[0].textContent;
+    const realNodeTextChild = realNode.childNodes[0].textContent;
 
-    expect(realNodeChildText).eql('text');
+    expect(realNodeTextChild).eql('text');
 
   });
 
@@ -81,9 +81,9 @@ describe('makeElements() - Make real DOM element ', () => {
       ]
     })
 
-    const realNodeChildClassProp = realNode.childNodes[0].className;
+    const realNodeChildClass = realNode.childNodes[0].className;
 
-    expect(realNodeChildClassProp).eql('paragraph');
+    expect(realNodeChildClass).eql('paragraph');
 
   });
 
@@ -103,9 +103,9 @@ describe('makeElements() - Make real DOM element ', () => {
       ]
     })
 
-    const realNodeChildText = realNode.childNodes[0].childNodes[0].textContent;
+    const realNodeTextChild = realNode.childNodes[0].childNodes[0].textContent;
 
-    expect(realNodeChildText).eql('hello');
+    expect(realNodeTextChild).eql('hello');
 
   });
 

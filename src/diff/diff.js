@@ -1,6 +1,6 @@
-import makeElements from './makeElements.js';
-import isDifferentNode from './isDifferentNode.js';
-import diffProps from './diffProps.js';
+import makeElements from './makeElements/makeElements';
+import isDifferentNode from './helpers/isDifferentNode';
+import diffProps from './diffProps/diffProps';
 
 /**
  * Diff the old and new virtual DOM representations

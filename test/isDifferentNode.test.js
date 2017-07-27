@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import isDifferentNode from '../src/isDifferentNode.js';
+import isDifferentNode from '../src/diff/helpers/isDifferentNode';
 
 describe('isDifferentNode()', () => {
 

@@ -1,8 +1,8 @@
 import jsdom from 'mocha-jsdom';
 import { expect, should } from 'chai';
-import makeElements from '../src/makeElements.js';
-import vdom from '../src/vdom.js';
-import diff from '../src/diff.js';
+import makeElements from '../src/diff/makeElements/makeElements';
+import vdom from '../src/vdom/vdom';
+import diff from '../src/diff/diff';
 
 describe('diff()', () => {
 
@@ -19,8 +19,8 @@ describe('diff()', () => {
 
       diff(parent, firstNode)
 
-      const newNodeTextContent = parent.nodeName;
-      expect(newNodeTextContent).to.deep.equal('DIV');
+      const parentNodeName = parent.nodeName;
+      expect(parentNodeName).to.deep.equal('DIV');
 
     });
 
@@ -32,8 +32,8 @@ describe('diff()', () => {
 
       diff(parent, firstNode)
 
-      const newNodeTextContent = parent.childNodes[0].nodeName;
-      expect(newNodeTextContent).to.deep.equal('H1');
+      const childNodeName = parent.childNodes[0].nodeName;
+      expect(childNodeName).to.deep.equal('H1');
 
     });
 
@@ -45,8 +45,8 @@ describe('diff()', () => {
 
       diff(parent, firstNode)
 
-      const newNodeTextContent = parent.childNodes[0].className;
-      expect(newNodeTextContent).to.deep.equal('heading');
+      const childNodeClassName = parent.childNodes[0].className;
+      expect(childNodeClassName).to.deep.equal('heading');
 
     });
 
@@ -58,8 +58,8 @@ describe('diff()', () => {
 
       diff(parent, firstNode)
 
-      const newNodeTextContent = parent.childNodes[0].textContent;
-      expect(newNodeTextContent).to.deep.equal('hello');
+      const childNodeTextNode = parent.childNodes[0].textContent;
+      expect(childNodeTextNode).to.deep.equal('hello');
 
     });
 
@@ -75,8 +75,8 @@ describe('diff()', () => {
 
       diff(parent, firstNode)
 
-      const newNodeTextContent = parent.childNodes[0].childNodes[0].nodeName;
-      expect(newNodeTextContent).to.deep.equal('H1');
+      const deepChildNoneName = parent.childNodes[0].childNodes[0].nodeName;
+      expect(deepChildNoneName).to.deep.equal('H1');
 
     });
 
@@ -92,8 +92,8 @@ describe('diff()', () => {
 
       diff(parent, firstNode)
 
-      const newNodeTextContent = parent.childNodes[0].childNodes[0].id;
-      expect(newNodeTextContent).to.deep.equal('heading1');
+      const deepChildNodeId = parent.childNodes[0].childNodes[0].id;
+      expect(deepChildNodeId).to.deep.equal('heading1');
 
     });
 
@@ -109,8 +109,8 @@ describe('diff()', () => {
 
       diff(parent, firstNode)
 
-      const newNodeTextContent = parent.childNodes[0].childNodes[0].textContent;
-      expect(newNodeTextContent).to.deep.equal('hello');
+      const deepChildNoneTextNone = parent.childNodes[0].childNodes[0].textContent;
+      expect(deepChildNoneTextNone).to.deep.equal('hello');
 
     });
 
@@ -142,8 +142,8 @@ describe('diff()', () => {
       diff(parent, oldNode)
       diff(parent, newNode, oldNode)
 
-      const newNodeTextContent = parent.childNodes[0].childNodes[1].nodeName;
-      expect(newNodeTextContent).to.deep.equal('LI');
+      const newDeepChildNoneName = parent.childNodes[0].childNodes[1].nodeName;
+      expect(newDeepChildNoneName).to.deep.equal('LI');
 
     });
 
@@ -168,8 +168,8 @@ describe('diff()', () => {
       diff(parent, oldNode)
       diff(parent, newNode, oldNode)
 
-      const newNodeTextContent = parent.childNodes[0].childNodes[1].id;
-      expect(newNodeTextContent).to.deep.equal('list-item');
+      const newDeepChildNoneId = parent.childNodes[0].childNodes[1].id;
+      expect(newDeepChildNoneId).to.deep.equal('list-item');
 
     });
 
@@ -194,8 +194,8 @@ describe('diff()', () => {
       diff(parent, oldNode)
       diff(parent, newNode, oldNode)
 
-      const newNodeTextContent = parent.childNodes[0].childNodes[1].textContent;
-      expect(newNodeTextContent).to.deep.equal('hello');
+      const newDeepChildNoneTextNone = parent.childNodes[0].childNodes[1].textContent;
+      expect(newDeepChildNoneTextNone).to.deep.equal('hello');
 
     });
 
@@ -221,8 +221,8 @@ describe('diff()', () => {
       diff(parent, oldNode)
       diff(parent, newNode, oldNode)
 
-      const newNodeTextContent = parent.childNodes[0].id;
-      expect(newNodeTextContent).to.deep.equal('main');
+      const newChildNoneId = parent.childNodes[0].id;
+      expect(newChildNoneId).to.deep.equal('main');
 
     });
 
@@ -249,8 +249,8 @@ describe('diff()', () => {
       diff(parent, oldNode)
       diff(parent, newNode, oldNode)
 
-      const newNodeTextContent = parent.childNodes[0].className;
-      expect(newNodeTextContent).to.deep.equal('main');
+      const newChildNoneClassName = parent.childNodes[0].className;
+      expect(newChildNoneClassName).to.deep.equal('main');
 
     });
 
@@ -274,8 +274,8 @@ describe('diff()', () => {
       diff(parent, oldNode)
       diff(parent, newNode, oldNode)
 
-      const newNodeTextContent = parent.childNodes[0].childNodes[0].id;
-      expect(newNodeTextContent).to.deep.equal('main');
+      const newDeepChildNoneId = parent.childNodes[0].childNodes[0].id;
+      expect(newDeepChildNoneId).to.deep.equal('main');
 
     });
 
@@ -299,8 +299,8 @@ describe('diff()', () => {
       diff(parent, oldNode)
       diff(parent, newNode, oldNode)
 
-      const newNodeTextContent = parent.childNodes[0].childNodes[0].className;
-      expect(newNodeTextContent).to.deep.equal('main');
+      const newDeepChildNoneClassName = parent.childNodes[0].childNodes[0].className;
+      expect(newDeepChildNoneClassName).to.deep.equal('main');
 
     });
 
@@ -407,8 +407,8 @@ describe('diff()', () => {
       diff(parent, oldNode)
       diff(parent, newNode, oldNode)
 
-      const newNodeTextContent = parent.childNodes[0].childNodes[1].textContent;
-      expect(newNodeTextContent).to.deep.equal('item 3');
+      const deepNodeTextNode = parent.childNodes[0].childNodes[1].textContent;
+      expect(deepNodeTextNode).to.deep.equal('item 3');
 
     });
 
@@ -432,8 +432,8 @@ describe('diff()', () => {
       diff(parent, oldNode)
       diff(parent, newNode, oldNode)
 
-      const newNodeTextContent = parent.childNodes[0].id;
-      expect(newNodeTextContent).to.deep.equal('');
+      const childNoneId = parent.childNodes[0].id;
+      expect(childNoneId).to.deep.equal('');
 
     });
 
@@ -467,8 +467,8 @@ describe('diff()', () => {
       diff(parent, oldNode)
       diff(parent, newNode, oldNode)
 
-      const newNodeTextContent = parent.childNodes[0].childNodes[0].className;
-      expect(newNodeTextContent).to.deep.equal('');
+      const deepChildNodeClassName = parent.childNodes[0].childNodes[0].className;
+      expect(deepChildNodeClassName).to.deep.equal('');
 
     });
 
@@ -493,8 +493,8 @@ describe('diff()', () => {
       diff(parent, oldNode)
       diff(parent, newNode, oldNode)
 
-      const newNodeTextContent = parent.childNodes[0].textContent;
-      expect(newNodeTextContent).to.deep.equal('');
+      const childNoneTextNode = parent.childNodes[0].textContent;
+      expect(childNoneTextNode).to.deep.equal('');
 
     });
 
@@ -523,8 +523,8 @@ describe('diff()', () => {
       diff(parent, oldNode)
       diff(parent, newNode, oldNode)
 
-      const newNodeTextContent = parent.childNodes[0].childNodes[0].textContent;
-      expect(newNodeTextContent).to.deep.equal('');
+      const deepChildNodeTextNode = parent.childNodes[0].childNodes[0].textContent;
+      expect(deepChildNodeTextNode).to.deep.equal('');
 
     });
 
@@ -547,8 +547,8 @@ describe('diff()', () => {
       diff(parent, oldNode)
       diff(parent, newNode, oldNode)
 
-      const newNodeTextContent = parent.childNodes[0].nodeName;
-      expect(newNodeTextContent).to.deep.equal('H2');
+      const childNodeName = parent.childNodes[0].nodeName;
+      expect(childNodeName).to.deep.equal('H2');
 
     });
 
@@ -564,8 +564,8 @@ describe('diff()', () => {
       diff(parent, oldNode)
       diff(parent, newNode, oldNode)
 
-      const newNodeTextContent = parent.childNodes[0].textContent;
-      expect(newNodeTextContent).to.deep.equal('changed text');
+      const childNodeTextNode = parent.childNodes[0].textContent;
+      expect(childNodeTextNode).to.deep.equal('changed text');
 
     });
 
@@ -584,8 +584,8 @@ describe('diff()', () => {
       diff(parent, oldNode)
       diff(parent, newNode, oldNode)
 
-      const newNodeTextContent = parent.childNodes[0].nodeName;
-      expect(newNodeTextContent).to.deep.equal('H1');
+      const childNoneName = parent.childNodes[0].nodeName;
+      expect(childNoneName).to.deep.equal('H1');
 
     });
 
@@ -604,8 +604,8 @@ describe('diff()', () => {
       diff(parent, oldNode)
       diff(parent, newNode, oldNode)
 
-      const newNodeTextContent = parent.childNodes[0].textContent;
-      expect(newNodeTextContent).to.deep.equal('changed text');
+      const childNoneTextNode = parent.childNodes[0].textContent;
+      expect(childNoneTextNode).to.deep.equal('changed text');
 
     });
 
@@ -633,8 +633,8 @@ describe('diff()', () => {
       diff(parent, oldNode)
       diff(parent, newNode, oldNode)
 
-      const newNodeTextContent = parent.childNodes[0].id;
-      expect(newNodeTextContent).to.deep.equal('main2');
+      const childNodeId = parent.childNodes[0].id;
+      expect(childNodeId).to.deep.equal('main2');
 
     });
 
@@ -664,8 +664,8 @@ describe('diff()', () => {
       diff(parent, oldNode)
       diff(parent, newNode, oldNode)
 
-      const newNodeTextContent = parent.childNodes[0].childNodes[0].id;
-      expect(newNodeTextContent).to.deep.equal('main2');
+      const deepChildNodeId = parent.childNodes[0].childNodes[0].id;
+      expect(deepChildNodeId).to.deep.equal('main2');
 
     });
 
@@ -695,8 +695,8 @@ describe('diff()', () => {
       diff(parent, oldNode)
       diff(parent, newNode, oldNode)
 
-      const newNodeTextContent = parent.childNodes[0].textContent;
-      expect(newNodeTextContent).to.deep.equal('Hello 2');
+      const childNodeTextNode = parent.childNodes[0].textContent;
+      expect(childNodeTextNode).to.deep.equal('Hello 2');
 
     });
 
@@ -728,8 +728,8 @@ describe('diff()', () => {
       diff(parent, oldNode)
       diff(parent, newNode, oldNode)
 
-      const newNodeTextContent = parent.childNodes[0].childNodes[0].textContent;
-      expect(newNodeTextContent).to.deep.equal('Hello 2');
+      const deepChildNoneTextNode = parent.childNodes[0].childNodes[0].textContent;
+      expect(deepChildNoneTextNode).to.deep.equal('Hello 2');
 
     });
 
