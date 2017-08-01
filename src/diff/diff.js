@@ -41,7 +41,7 @@ export default function diffElement(parent, newNode, oldNode, index = 0) {
   // diff text nodes
   // --------------------------
   } else if (typeof newNode === 'string') {
-    diffTextNodes(parent, newNode, oldNode);
+    diffTextNodes(parent, newNode, oldNode, index);
 
   // Same element node
   // --------------------------
