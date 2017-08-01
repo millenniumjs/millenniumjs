@@ -1,6 +1,6 @@
 /**
  * Remove a prop in any real DOM element
- * @module src/diff/diffProps/helpers/removeProp
+ * @module src/diff/helpers/removeProp
  *
  * @param {object} element - Real DOM element
  * @param {string} propName - Prop name

@@ -2,7 +2,7 @@ import jsdom from 'mocha-jsdom';
 import { expect } from 'chai';
 import makeElements from '../src/diff/makeElements/makeElements';
 import vdom from '../src/vdom/vdom';
-import addProp from '../src/diff/diffProps/helpers/addProp';
+import addProp from '../src/diff/helpers/addProp';
 
 describe('addProp()', () => {
 

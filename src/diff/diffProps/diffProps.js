@@ -1,5 +1,5 @@
-import addProp from './helpers/addProp';
-import removeProp from './helpers/removeProp';
+import addProp from './../helpers/addProp';
+import removeProp from './../helpers/removeProp';
 
 /**
  * Diff all props

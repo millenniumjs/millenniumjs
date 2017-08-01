@@ -1,6 +1,6 @@
 /**
  * Add a new prop in any real DOM element
- * * @module src/diff/diffProps/helpers/addProp
+ * * @module src/diff/helpers/addProp
  *
  * @param {object} element - Real DOM element
  * @param {string} propName - New prop name

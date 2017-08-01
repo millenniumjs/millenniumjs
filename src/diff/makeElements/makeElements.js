@@ -1,3 +1,5 @@
+import addProp from './../helpers/addProp';
+
 /**
  * Generate real DOM elements.
  * @module src/diff/makeElements/makeElements
@@ -24,7 +26,7 @@ export default function makeElements(vNode) {
   // --------------------------
   if(vNode.props) {
     Object.keys(vNode.props).forEach(propName => {
-      element[propName] = vNode.props[propName];
+      addProp(element, propName, vNode.props[propName]);
     });
   }
 
