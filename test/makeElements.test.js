@@ -33,6 +33,21 @@ describe('makeElements() - Make real DOM element ', () => {
   });
 
   // --------------------------
+  it('Should return a real DOM element with an attached event', () => {
+
+    let state = 'No click event';
+
+    const realNode = makeElements({
+      type: 'div',
+      props: {onClick: () => state = 'Has click event'}
+    });
+
+    realNode.click();
+
+    expect(state).to.be.equal('Has click event');
+  });
+
+  // --------------------------
 
   it('Should return a real DOM element with a text child', () => {
 
@@ -85,6 +100,29 @@ describe('makeElements() - Make real DOM element ', () => {
 
     expect(realNodeChildClass).eql('paragraph');
 
+  });
+
+  // --------------------------
+
+  it('Should return a real child with an attached event', () => {
+
+    let state = 'No click event';
+
+    const realNode = makeElements({
+      type: 'div',
+      props: null,
+      children: [
+        {
+          type: 'p',
+          props: {onClick: () => state = 'Has click event'},
+          children: ['hello']
+        }
+      ]
+    })
+
+    realNode.childNodes[0].click();
+
+    expect(state).to.be.equal('Has click event');
   });
 
   // --------------------------

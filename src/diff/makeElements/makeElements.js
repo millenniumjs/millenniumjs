@@ -1,3 +1,5 @@
+import isEventProp from './../helpers/isEventProp';
+import addEventListener from './../helpers/addEventListener';
 import addProp from './../helpers/addProp';
 
 /**
@@ -26,7 +28,11 @@ export default function makeElements(vNode) {
   // --------------------------
   if(vNode.props) {
     Object.keys(vNode.props).forEach(propName => {
-      addProp(element, propName, vNode.props[propName]);
+      if(isEventProp(propName)) {
+        addEventListener(element, propName, vNode.props[propName]);
+      } else {
+        addProp(element, propName, vNode.props[propName]);
+      }
     });
   }
 
