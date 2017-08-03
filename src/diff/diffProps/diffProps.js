@@ -1,5 +1,7 @@
 import addProp from './../helpers/addProp';
 import removeProp from './../helpers/removeProp';
+import isEventProp from './../helpers/isEventProp';
+import diffEventProp from './../helpers/diffEventProp';
 
 /**
  * Diff all props
@@ -17,12 +19,25 @@ export default function diffProps(element, newProps, oldProps = {}) {
 
   Object.keys(allProps).forEach(propName => {
 
-    diffProp(
-      element,
-      propName,
-      newProps[propName],
-      oldProps[propName]
-    );
+    if(isEventProp(propName)) {
+
+      diffEventProp(
+        element,
+        propName,
+        newProps[propName],
+        oldProps[propName]
+      );
+
+    } else {
+
+      diffProp(
+        element,
+        propName,
+        newProps[propName],
+        oldProps[propName]
+      );
+
+    }
 
   });
 

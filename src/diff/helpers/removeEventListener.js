@@ -1,8 +1,8 @@
 import extractEventName from './extractEventName';
 
 /**
- * Add event listeners
- * @module src/diff/helpers/addEventListener
+ * Remove event listeners
+ * @module src/diff/helpers/removeEventListener
  *
  * @param {object} element - Real DOM Element
  * @param {string} propName - The event name
@@ -10,9 +10,9 @@ import extractEventName from './extractEventName';
  *
  */
 
-export default function addEventListener(element, propName, callBack) {
+export default function removeEventListener(element, propName, callBack) {
 
-  element.addEventListener(
+  element.removeEventListener(
     extractEventName(propName),
     callBack
   );
