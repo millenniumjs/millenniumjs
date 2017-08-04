@@ -136,4 +136,85 @@ describe('vdom() - Virtual DOM representation', () => {
 
   });
 
+  // --------------------------
+
+  it('Should return a virtual node with function component child', () => {
+
+    // JSX representation
+    // const VNodeFunctionComponent = () => {
+    //   return (
+    //     <button> Show </button>
+    //   )
+    // }
+
+    // Vanilla JS representation
+    const VNodeFunctionComponent = () => {
+      return vdom(
+        'button',
+        null,
+        'Show'
+      )
+    }
+
+    // JSX representation
+    // const vNode = <VNodeFunctionComponent />
+
+    // Vanilla JS representation
+    const vNode = vdom(
+      VNodeFunctionComponent,
+      null,
+      'Show'
+    )
+
+    // result
+    const vNodeResult = {
+      type: 'button',
+      props: {},
+      children: ['Show']
+    }
+
+    expect(vNode).to.deep.equal(vNodeResult);
+
+  });
+
+  // --------------------------
+
+  it('Should return a virtual node with function component child (with Props)', () => {
+
+    // JSX representation
+    // const VNodeFunctionComponent = ({text}) => {
+    //   return (
+    //     <button> {text} </button>
+    //   )
+    // }
+
+    // Vanilla JS representation
+    const VNodeFunctionComponent = ({text}) => {
+      return vdom(
+        'button',
+        null,
+        text + ' Component'
+      )
+    }
+
+    // JSX representation
+    // const vNode = <VNodeFunctionComponent text="Show"/>
+
+    // Vanilla JS representation
+    const vNode = vdom(
+      VNodeFunctionComponent,
+      {text: 'Show'}
+    )
+
+    // result
+    const vNodeResult = {
+      type: 'button',
+      props: {},
+      children: ['Show Component']
+    }
+
+    expect(vNode).to.deep.equal(vNodeResult);
+
+  });
+
 });

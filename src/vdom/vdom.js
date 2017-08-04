@@ -2,7 +2,7 @@
  * Generates a virtual DOM representation as a plane Object.
  * @module src/vdom
  *
- * @param {string} type - Element type.
+ * @param {(string|function)} type - Element type.
  * @param {object} props - All Props and values.
  * @param {...(string|vdom)} children -  Child elements (String or vdom)
  *
@@ -37,5 +37,13 @@
  */
 
 export default (type, props, ...children) => {
-  return { type, props: props || {}, children };
+
+  // Check if type is a function provided by JSX
+  if(typeof type !== 'string') {
+    // Run the function with parameters for render internal nodes
+    return type(props);
+  }
+
+  return {type, props: props || {}, children};
+
 };
