@@ -1,6 +1,94 @@
-# Millennium.JS
+# millennium.JS
 
-> Render your components in less than 12 parsecs.
+> :rocket: Render your Front-End in less than 12 parsecs.
+
+[![Build Status](https://travis-ci.org/millenniumjs/millenniumjs.svg?branch=master)](https://travis-ci.org/millenniumjs/millenniumjs)
+[![dependencies Status](https://david-dm.org/millenniumjs/millenniumjs/status.svg)](https://david-dm.org/millenniumjs/millenniumjs)
+[![npm](https://img.shields.io/npm/v/millenniumjs.svg)](https://www.npmjs.com/package/millenniumjs)
+
+## What is?
+
+A javascript library for create Functional Stateless Components and render with Virtual DOM. Ideal for creating ultra light and fast applications with [Redux](http://redux.js.org/).
+
+## Best Features
+
+- Functional **Components**.
+- **Custom Props** for manage unidirectional data flow.
+- **Virtual DOM** Render.
+- Easy selection real DOM nodes with global **Refs**.
+- Compatible with **JSX**.
+- Easy integration with **Redux**.
+
+## How to use?
+
+### Install
+
+**Tip:** Verify if you have [node](http://nodejs.org/) and [npm](https://www.npmjs.org/) installed.
+
+```sh
+$ npm install millenniumjs --save-dev
+```
+
+### Setup
+
+**ES6/Ecma 2015 module:**
+
+**Tip:** Use [Webpack](https://webpack.github.io/) (or similar module bundler) to manage the components.
+
+```js
+import millennium from 'millenniumjs';
+```
+
+### Make stateless components
+
+```js
+import millennium from 'millenniumjs';
+
+function Hello() {
+
+  return (
+    millennium.component(
+      type: 'h1',
+      props: {className: 'foo'},
+      child: ['Hello World']
+    )
+  )
+
+}
+```
+
+**Tip:** Use [JSX](https://jsx.github.io/) to write your component declaratively.
+
+```js
+import millennium from 'millenniumjs';
+
+function Hello() {
+
+  return (
+    <h1 className="foo">
+      Hello World
+    </h1>
+  )
+
+}
+```
+
+### Render with Virtual DOM
+
+```js
+import millennium from 'millenniumjs';
+
+function Hello() {
+  // Markup
+}
+
+millennium.render(<Hello />, document.getElementById('root'));
+```
+
+## Docs
+
+Did you like it?<br>
+See [complete documentation](http://millenniumjs.github.io/) and start now with millennium.JS.
 
 ## Development
 

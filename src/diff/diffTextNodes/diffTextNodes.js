@@ -1,3 +1,5 @@
+/*eslint max-len: off*/
+
 /**
  * Diff the old and new virtual text node representations
  * @module src/diff/diffTextNodes/diffTextNodes

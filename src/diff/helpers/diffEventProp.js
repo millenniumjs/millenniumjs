@@ -1,3 +1,5 @@
+/*eslint max-len: off*/
+
 import addEventListener from './addEventListener';
 import removeEventListener from './removeEventListener';
 
