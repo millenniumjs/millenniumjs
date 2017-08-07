@@ -48,9 +48,9 @@ function Hello() {
 
   return (
     millennium.component(
-      type: 'h1',
-      props: {className: 'foo'},
-      child: ['Hello World']
+      'h1',
+      {className: 'foo'},
+      'Hello World'
     )
   )
 
@@ -89,6 +89,8 @@ millennium.render(<Hello />, document.getElementById('root'));
 
 Did you like it?<br>
 See [complete documentation](http://millenniumjs.github.io/) and start now with millennium.JS.
+
+<hr>
 
 ## Development
 
