@@ -1,7 +1,9 @@
 {
   "name": "millenniumjs",
   "description": "Render your Front-End in less than 12 parsecs",
-  "version": "1.0.0-alpha",
+  "version": "1.2.0-alpha",
+  "main": "dist/millennium.cjs.js",
+  "module": "dist/millennium.esm.js",
   "author": {
     "name": "afonsopacifer",
     "email": "afonsopacifer@live.com"
@@ -9,7 +11,6 @@
   "bugs": {
     "url": "https://github.com/millenniumjs/millenniumjs/issues"
   },
-  "main": "dist/millennium.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/millenniumjs/millenniumjs"
