@@ -31,12 +31,20 @@ $ npm install millenniumjs --save-dev
 
 ### Setup
 
-**ES6/Ecma 2015 module:**
+#### ES6/ECMAScript 2015 module:
 
 **Tip:** Use [Webpack](https://webpack.github.io/) (or similar module bundler) to manage the components.
 
 ```js
 import millennium from 'millenniumjs';
+```
+
+#### CommonJS module:
+
+**Tip:** Use [Browserify](http://browserify.org/) (or similar module bundler) to manage the components.
+
+```js
+const millennium = require('millenniumjs');
 ```
 
 ### Make stateless components
