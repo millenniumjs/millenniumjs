@@ -1,7 +1,7 @@
 {
   "name": "millenniumjs",
   "description": "Render your Front-End in less than 12 parsecs",
-  "version": "1.2.0-alpha",
+  "version": "1.2.1-alpha",
   "main": "dist/millennium.cjs.js",
   "module": "dist/millennium.esm.js",
   "author": {

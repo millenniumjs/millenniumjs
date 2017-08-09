@@ -4,6 +4,11 @@ import getRefs from './refs/getRefs';
 
 class Millennium  {
 
+  constructor() {
+    this.oldVNode = null;
+    this.refs = {};
+  }
+
   /**
    * Generates a virtual DOM representation as a plane Object
    *
