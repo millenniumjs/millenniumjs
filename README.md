@@ -130,6 +130,10 @@ Follow the [JS Code Style Guide](https://github.com/afonsopacifer/code-style-gui
 
 *All code style are automatic validate with [ESLint](http://eslint.org/):*
 
+```sh
+$ npm run lint
+```
+
 ### Code Docs
 
 *Generate code docs with [JSDocs](https://jsdoc.app/)*
