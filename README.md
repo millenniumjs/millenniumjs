@@ -3,7 +3,6 @@
 > :rocket: Render your Front-End in less than 12 parsecs.
 
 [![Build Status](https://travis-ci.org/millenniumjs/millenniumjs.svg?branch=master)](https://travis-ci.org/millenniumjs/millenniumjs)
-[![dependencies Status](https://david-dm.org/millenniumjs/millenniumjs/status.svg)](https://david-dm.org/millenniumjs/millenniumjs)
 [![npm](https://img.shields.io/npm/v/millenniumjs.svg)](https://www.npmjs.com/package/millenniumjs)
 
 ## What is?
@@ -23,7 +22,7 @@ A javascript library for create Functional Stateless Components and render with 
 
 ### Install
 
-**Tip:** Verify if you have [node](http://nodejs.org/) and [npm](https://www.npmjs.org/) installed.
+**Tip:** Verify if you have [node](http://nodejs.org/) and [npm](https://www.npmjs.com/) installed.
 
 ```sh
 $ npm install millenniumjs --save-dev
@@ -133,7 +132,7 @@ Follow the [JS Code Style Guide](https://github.com/afonsopacifer/code-style-gui
 
 ### Code Docs
 
-*Generate code docs with [JSDocs](http://usejsdoc.org/)*
+*Generate code docs with [JSDocs](https://jsdoc.app/)*
 
 ```sh
 $ npm run jsdocs
